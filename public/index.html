@@ -4,19 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Orai</title>
     <script src="orai.js"></script>
 </head>
 
 <body>
     <script defer>
-        function render() {
-            const renderer = Module._add(1, 2);
-
-            console.log("Page loaded", renderer);
-        }
-
-        window.requestIdleCallback(render);
+        window.requestIdleCallback(Module._renderer);
     </script>
 </body>
 
