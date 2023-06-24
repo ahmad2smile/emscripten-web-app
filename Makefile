@@ -1,6 +1,6 @@
-CC=gcc
-BIN=orai
-CFLAG=-g -Wall
+CC=emcc
+BIN=orai.js
+CFLAG=-O3
 
 SRC=src
 BUILD=build
@@ -13,10 +13,11 @@ all: setup build run
 setup:
 	@ if [ ! -d "build" ]; then \
 		mkdir build; \
+		cp ./public/index.html ./build/; \
 	fi
 
 build: setup $(SRCS) $(HDRS)
 	@ $(CC) $(CFLAG) -o $(BUILD)/$(BIN) $(SRCS) $(HDRS)
 
 run: build
-	@ ./$(BUILD)/$(BIN)
+	@ python -m http.server -d ./$(BUILD)/
