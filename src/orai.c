@@ -1,31 +1,28 @@
+#include <stdio.h>
 #include <emscripten.h>
+#include "lib/components.h"
+#include "lib/renderer.h"
 
-EM_JS(void, render_dom, (char* x), {
-    var jsStr = Module.UTF8ToString(x);
+EMSCRIPTEN_KEEPALIVE
+void clickHandler()
+{
+    printf("Clicker");
+}
 
-    // NOTE: Not supported in Firefox, behind flag
-    document.body.setHTML(jsStr);
-    // NOTE: Would be faster as it doesn't snitize
-    // document.body.innerHTML = jsStr;
-    console.log("Html to be rendered:", jsStr);
-});
-
-struct Component {
-    char* view;
-};
-
-struct Component createComponent() {
-    struct Component component;
-    component.view = "<h1>Hello World</h1>";
+Component createComponent()
+{
+    Component component;
+    component.view = "<h1>Hello World</h1><button onclick=\"Module._clickHandler()\">Click</button>";
 
     return component;
 }
 
 EMSCRIPTEN_KEEPALIVE
-int renderer() {
-    struct Component component = createComponent();
+int orai()
+{
+    Component component = createComponent();
 
-    render_dom(component.view);
+    renderDom(&component);
 
     return 0;
 }
