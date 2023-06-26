@@ -6,7 +6,7 @@
 EMSCRIPTEN_KEEPALIVE
 void clickHandler()
 {
-    printf("Clicker");
+    EM_ASM(console.log('Hello from C!'););
 }
 
 Component createComponent()
